@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de reproducción</title>
+    <link rel="stylesheet" href="../wwwroot/lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.2/font/bootstrap-icons.css">
+    <link href="https://vjs.zencdn.net/7.16.0/video-js.css" rel="stylesheet" />
+    <style>
+        .play-button, .trash-button {
+            border: none;
+            background: none;
+            cursor: pointer;
+        }
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: auto;
+        }
+        .video-js {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <div class="row">
+          <div class="col-6 text-center m-auto" style="background-color: red;">
+            <h1>Lista de reproducción</h1><hr>
+            <p><strong>Youtube Player Api with Video.js</strong></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6 m-auto">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item list-group-item-action d-flex justify-content-between">
+                <div class="me-auto d-flex p-1">
+                  <div class="video-container">
+                    <div id="player-1"></div>
+                  </div>
+                  <div class="text-start ms-3">
+                    <h3>Video1</h3>
+                    <h6>Futbol Neymar jr</h6>
+                  </div>
+                </div>
+                <button id="playButton-1" class="btn btn-default play-button">
+                  <i class="bi bi-play-circle-fill"></i>
+                </button>
+                <button id="trashButton-1" class="btn btn-default trash-button">
+                  <i class="bi bi-trash-fill"></i>
+                </button>
+              </li>
+              <li class="list-group-item list-group-item-action d-flex justify-content-between">
+                <div class="me-auto d-flex p-1">
+                  <div class="video-container">
+                    <div id="player-2"></div>
+                  </div>
+                  <div class="text-start ms-3">
+                    <h3>Video2</h3>
+                    <h6>Juego Valorant</h6>
+                  </div>
+                </div>
+                <button id="playButton-2" class="btn btn-default play-button">
+                  <i class="bi bi-play-circle-fill"></i>
+                </button>
+                <button id="trashButton-2" class="btn btn-default trash-button">
+                  <i class="bi bi-trash-fill"></i>
+                </button>
+              </li>
+              <li class="list-group-item list-group-item-action d-flex justify-content-between">
+                <div class="me-auto d-flex p-1">
+                  <div class="video-container">
+                    <div id="player-3"></div>
+                  </div>
+                  <div class="text-start ms-3">
+                    <h3>Video3</h3>
+                    <h6>Anime Yourname</h6>
+                  </div>
+                </div>
+                <button id="playButton-3" class="btn btn-default play-button">
+                  <i class="bi bi-play-circle-fill"></i>
+                </button>
+                <button id="trashButton-3" class="btn btn-default trash-button">
+                  <i class="bi bi-trash-fill"></i>
+                </button>
+              </li>
+              <!-- Aquí puedo agregar mas  -->
+            </ul>
+          </div>
+        </div>
+    </div>
+
+    <script src="../wwwroot/lib/jquery/dist/jquery.min.js"></script>
+    <script src="../wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://vjs.zencdn.net/7.16.0/video.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+        // Variables para los reproductores de YouTube
+        var player1;
+        var player2;
+        var player3;
+
+        // Función llamada cuando la API de YouTube se ha cargado
+        function onYouTubeIframeAPIReady() {
+            // Crea el primer reproductor de YouTube
+            player1 = new YT.Player('player-1', {
+                height: '220',
+                width: '400',
+                videoId: 'CRJicvnJmqc',
+                events: {
+                    'onReady': onPlayerReady
+                }
+            });
+
+            // Crea el segundo reproductor de YouTube
+            player2 = new YT.Player('player-2', {
+                height: '220',
+                width: '400',
+                videoId: 'ZbUnyCBllJs',
+                events: {
+                    'onReady': onPlayerReady
+                }
+            });
+
+            // Crea el tercer reproductor de YouTube
+            player3 = new YT.Player('player-3', {
+                height: '220',
+                width: '400',
+                videoId: 'FuIdf6uol7Q',
+                events: {
+                    'onReady': onPlayerReady
+                }
+            });
+        }
+
+
+        
+
+        // Función llamada cuando el reproductor de YouTube está listo
+        function onPlayerReady(event) {
+        // Determina qué reproductor está listo
+        var player;
+        if (event.target == player1) {
+            player = player1;
+        } else if (event.target == player2) {
+            player = player2;
+        } else if (event.target == player3) {
+            player = player3;
+        }
+
+        // Asigna evento click al botón de play
+        document.getElementById("playButton-" + player.getIframe().id.slice(-1)).addEventListener("click", function() {
+            player.playVideo();
+        });
+
+        // Asigna evento click al botón de trash
+        document.getElementById("trashButton-" + player.getIframe().id.slice(-1)).addEventListener("click", function() {
+            player.stopVideo();
+            player.clearVideo();
+        });
+    }
+    </script>
+</body>
+</html>
